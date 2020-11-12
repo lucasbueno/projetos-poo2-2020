@@ -1,1 +1,1 @@
-# projetos-poo2-2020
+# Projetos para a disciplina de POO2 (turma de 2020)

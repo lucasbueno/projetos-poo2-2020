@@ -11,11 +11,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnOi" mnemonicParsing="false" onAction="#actionBtnOi" text="Oi">
-               <font>
-                  <Font name="System Bold" size="29.0" />
-               </font>
-            </Button>
+            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#login" text="login"/>
             <Button mnemonicParsing="false" text="Button" />
          </children>
       </HBox>

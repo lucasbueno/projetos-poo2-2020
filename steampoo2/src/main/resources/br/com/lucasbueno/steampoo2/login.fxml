@@ -47,7 +47,7 @@
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Novo usuário">
+            <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#register" text="Novo usuário">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>

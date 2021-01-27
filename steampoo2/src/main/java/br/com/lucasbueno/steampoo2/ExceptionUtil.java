@@ -1,6 +1,5 @@
 package br.com.lucasbueno.steampoo2;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 

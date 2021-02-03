@@ -7,6 +7,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -47,6 +49,15 @@ public class App extends Application {
 				System.out.println(password);
 
 				User user = new User(username, password);
+				user.setIdade(15);
+
+				EntityManager em = ConnDB.getEntityManager();
+				em.getTransaction().begin();
+				em.persist(user);
+				em.getTransaction().commit();
+				em.close();
+				ConnDB.closeConn();
+
 			}
 		}
 
@@ -83,10 +94,6 @@ public class App extends Application {
 
 	public static void setRoot(String fxml) {
 		stage.setScene(FXMLUtil.loadScene(fxml));
-	}
-
-	public static void main(String[] args) {
-		launch();
 	}
 
 	public static void changeResizable() {

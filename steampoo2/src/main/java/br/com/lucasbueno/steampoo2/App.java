@@ -55,8 +55,12 @@ public class App extends Application {
 				em.getTransaction().begin();
 				em.persist(user);
 				em.getTransaction().commit();
-				em.close();
-				ConnDB.closeConn();
+
+				User user2 = new User("teste", "teste");
+				user2.setIdade(18);
+				em.getTransaction().begin();
+				em.persist(user2);
+				em.getTransaction().commit();				
 
 			}
 		}

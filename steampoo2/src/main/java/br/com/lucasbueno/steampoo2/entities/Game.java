@@ -1,4 +1,4 @@
-package br.com.lucasbueno.steampoo2;
+package br.com.lucasbueno.steampoo2.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

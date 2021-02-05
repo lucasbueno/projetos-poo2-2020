@@ -7,8 +7,9 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
+import br.com.lucasbueno.steampoo2.db.UserDAO;
+import br.com.lucasbueno.steampoo2.db.UtilDB;
+import br.com.lucasbueno.steampoo2.entities.User;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
@@ -52,30 +53,23 @@ public class App extends Application {
 				user.setIdade(15);
 
 				// adicionando o usuario que veio da API
-				EntityManager em = ConnDB.getEntityManager();
-				em.getTransaction().begin();
-				em.persist(user);
-				em.getTransaction().commit();
+				new UserDAO().persist(user);
 
 				// criando e adicionando um novo usuario para testes
 				User user2 = new User("teste", "teste");
 				user2.setIdade(18);
-				em.getTransaction().begin();
-				em.persist(user2);
-				em.getTransaction().commit();
+				new UserDAO().persist(user2);
 				
 				// atualizando o usuario de testes
-				em.getTransaction().begin();
+				UtilDB.getEntityManager().getTransaction().begin();
 				user2.setIdade(20);
-				em.getTransaction().commit();
+				UtilDB.getEntityManager().getTransaction().commit();
 				
 				// removendo o usuario de testes
-				em.getTransaction().begin();
-				em.remove(user2);
-				em.getTransaction().commit();
+				new UserDAO().remove(user2);
 				
 				// buscando o usuario admin
-				User admin = em.find(User.class, "admin");
+				User admin = new UserDAO().get("admin");
 				System.out.println(admin.getPassword());
 
 			}

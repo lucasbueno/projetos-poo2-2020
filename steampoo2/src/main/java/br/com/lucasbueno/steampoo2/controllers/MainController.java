@@ -1,5 +1,6 @@
-package br.com.lucasbueno.steampoo2;
+package br.com.lucasbueno.steampoo2.controllers;
 
+import br.com.lucasbueno.steampoo2.App;
 import javafx.fxml.FXML;
 
 public class MainController {

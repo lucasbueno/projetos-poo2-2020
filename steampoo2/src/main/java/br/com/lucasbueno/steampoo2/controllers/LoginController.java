@@ -1,7 +1,11 @@
-package br.com.lucasbueno.steampoo2;
+package br.com.lucasbueno.steampoo2.controllers;
 
 import javax.persistence.EntityManager;
 
+import br.com.lucasbueno.steampoo2.App;
+import br.com.lucasbueno.steampoo2.FXMLUtil;
+import br.com.lucasbueno.steampoo2.db.UtilDB;
+import br.com.lucasbueno.steampoo2.entities.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -15,7 +19,7 @@ public class LoginController {
 		App.changeResizable();
 		App.setRoot("main");
 		Game g = new Game("primeiro jogo");
-		EntityManager em = ConnDB.getEntityManager();
+		EntityManager em = UtilDB.getEntityManager();
 		em.getTransaction().begin();
 		em.persist(g);
 		em.getTransaction().commit();

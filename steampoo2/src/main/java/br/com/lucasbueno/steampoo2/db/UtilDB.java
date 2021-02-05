@@ -1,10 +1,10 @@
-package br.com.lucasbueno.steampoo2;
+package br.com.lucasbueno.steampoo2.db;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class ConnDB {
+public class UtilDB {
 
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;

@@ -51,16 +51,32 @@ public class App extends Application {
 				User user = new User(username, password);
 				user.setIdade(15);
 
+				// adicionando o usuario que veio da API
 				EntityManager em = ConnDB.getEntityManager();
 				em.getTransaction().begin();
 				em.persist(user);
 				em.getTransaction().commit();
 
+				// criando e adicionando um novo usuario para testes
 				User user2 = new User("teste", "teste");
 				user2.setIdade(18);
 				em.getTransaction().begin();
 				em.persist(user2);
-				em.getTransaction().commit();				
+				em.getTransaction().commit();
+				
+				// atualizando o usuario de testes
+				em.getTransaction().begin();
+				user2.setIdade(20);
+				em.getTransaction().commit();
+				
+				// removendo o usuario de testes
+				em.getTransaction().begin();
+				em.remove(user2);
+				em.getTransaction().commit();
+				
+				// buscando o usuario admin
+				User admin = em.find(User.class, "admin");
+				System.out.println(admin.getPassword());
 
 			}
 		}

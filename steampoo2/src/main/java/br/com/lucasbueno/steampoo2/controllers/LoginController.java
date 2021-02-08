@@ -1,28 +1,55 @@
 package br.com.lucasbueno.steampoo2.controllers;
 
-import javax.persistence.EntityManager;
-
 import br.com.lucasbueno.steampoo2.App;
+import br.com.lucasbueno.steampoo2.ExceptionUtil;
 import br.com.lucasbueno.steampoo2.FXMLUtil;
-import br.com.lucasbueno.steampoo2.db.UtilDB;
-import br.com.lucasbueno.steampoo2.entities.Game;
+import br.com.lucasbueno.steampoo2.db.UserDAO;
+import br.com.lucasbueno.steampoo2.entities.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LoginController {
 	@FXML
 	private Button btnLogin;
+	
+	@FXML
+	private TextField txtEmail;
+	
+	@FXML
+	private PasswordField txtPassword;
 
 	@FXML
 	private void login() {
+		String email = txtEmail.getText();
+		String password = txtPassword.getText();
+		
+		if(email.isBlank()) {
+			Alert alert = ExceptionUtil.error("Erro!", "Erro!", "Digite o e-mail!", null);
+			alert.showAndWait();
+			return;
+		}
+		if(password.isBlank()) {
+			Alert alert = ExceptionUtil.error("Erro!", "Erro!", "Digite a senha!", null);
+			alert.showAndWait();
+			return;
+		}
+		User u = new UserDAO().get(email);
+		if(u == null) {
+			Alert alert = ExceptionUtil.error("Erro!", "Erro!", "E-mail ou senha inválido(s)!", null);
+			alert.showAndWait();
+			return;
+		}
+		if(!u.getPassword().contentEquals(password)) {
+			Alert alert = ExceptionUtil.error("Erro!", "Erro!", "E-mail ou senha inválido(s)!", null);
+			alert.showAndWait();
+			return;
+		}		
 		App.changeResizable();
 		App.setRoot("main");
-		Game g = new Game("primeiro jogo");
-		EntityManager em = UtilDB.getEntityManager();
-		em.getTransaction().begin();
-		em.persist(g);
-		em.getTransaction().commit();
 	}
 
 	@FXML

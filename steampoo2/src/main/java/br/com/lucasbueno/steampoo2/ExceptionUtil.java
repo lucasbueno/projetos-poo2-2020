@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
 public class ExceptionUtil {
-	
+
 	public static Alert error(String title, String header, String content, Exception ex) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(title);
@@ -21,8 +21,11 @@ public class ExceptionUtil {
 		// Create expandable Exception.
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
-		ex.printStackTrace(pw);
-		String exceptionText = sw.toString();
+		String exceptionText = ""; 
+		if (ex != null) {
+			ex.printStackTrace(pw);
+			exceptionText = sw.toString();
+		}
 
 		Label label = new Label("A pilha de execução da exceção é:");
 

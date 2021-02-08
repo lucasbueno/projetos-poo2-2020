@@ -11,13 +11,12 @@ public class UserDAO implements InterfaceDAO<User> {
 
 	@Override
 	public void persist(User t) {
+		EntityManager em = UtilDB.getEntityManager();
 		try {
-			EntityManager em = UtilDB.getEntityManager();
 			em.getTransaction().begin();
 			em.persist(t);
 			em.getTransaction().commit();
 		} catch (EntityExistsException e) {
-			EntityManager em = UtilDB.getEntityManager();
 			em.getTransaction().rollback();
 			User original = get(t.getUsername());
 			em.getTransaction().begin();
@@ -36,15 +35,11 @@ public class UserDAO implements InterfaceDAO<User> {
 
 	@Override
 	public User get(Object pk) {
-		EntityManager em = UtilDB.getEntityManager();
-		User t = em.find(User.class, pk);
-		return t;
+		return UtilDB.getEntityManager().find(User.class, pk);
 	}
 
 	@Override
 	public List<User> getAll() {
-		EntityManager em = UtilDB.getEntityManager();
-		List<User> users = em.createQuery("SELECT u FROM User u", User.class).getResultList();
-		return users;
+		return UtilDB.getEntityManager().createQuery("SELECT u FROM User u", User.class).getResultList();
 	}
 }

@@ -33,7 +33,7 @@
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin></Label>
-                  <PasswordField fx:id="txtPassword"/>
+                  <PasswordField fx:id="txtPassword" />
                </children>
             </HBox>
          </children>
@@ -51,7 +51,7 @@
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Sair" />
+            <Button mnemonicParsing="false" onAction="#exit" text="Sair" />
          </children>
          <VBox.margin>
             <Insets />

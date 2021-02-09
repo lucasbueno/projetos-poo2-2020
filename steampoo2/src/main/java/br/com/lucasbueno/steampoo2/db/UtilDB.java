@@ -11,7 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import br.com.lucasbueno.steampoo2.ExceptionUtil;
+import br.com.lucasbueno.steampoo2.AlertUtil;
+import br.com.lucasbueno.steampoo2.entities.Game;
 import br.com.lucasbueno.steampoo2.entities.User;
 import javafx.scene.control.Alert;
 
@@ -45,6 +46,14 @@ public class UtilDB {
 			new UserDAO().persist(u);
 
 		User u = new User("admin", "teste");
+		new UserDAO().persist(u);
+
+		Game cs = new Game("Counter-strike", "Joguinho de tiro", 10.5);
+		Game nfs = new Game("Need for Speed", "Joguinho de corrida de carrinhos", 15.5);
+		new GameDAO().persist(cs);
+		new GameDAO().persist(nfs);
+
+		u.getGames().add(cs);
 		new UserDAO().persist(u);
 	}
 
@@ -87,7 +96,7 @@ public class UtilDB {
 
 			in.close();
 		} catch (Exception e) {
-			Alert alert = ExceptionUtil.error("Erro", "Erro ao consumir a API!", "Erro ao consumir a API!", e);
+			Alert alert = AlertUtil.error("Erro", "Erro ao consumir a API!", "Erro ao consumir a API!", e);
 			alert.showAndWait();
 		}
 		return result;

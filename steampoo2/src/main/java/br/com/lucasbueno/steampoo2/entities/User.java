@@ -1,13 +1,22 @@
 package br.com.lucasbueno.steampoo2.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class User {
+
 	@Id
 	private String username;
+
 	private String password;
+
+	@ManyToMany
+	private List<Game> games;
 
 	public User() {
 	}
@@ -16,6 +25,7 @@ public class User {
 		super();
 		this.username = username;
 		this.password = password;
+		this.games = new ArrayList<>();
 	}
 
 	public String getUsername() {
@@ -32,6 +42,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
 	}
 
 	@Override

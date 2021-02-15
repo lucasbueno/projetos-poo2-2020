@@ -73,6 +73,7 @@ public class MainController {
 		String gameName = userGameList.getSelectionModel().getSelectedItem();
 		Game game = new GameDAO().get(gameName);
 		user.getGames().remove(game);
+		new UserDAO().persist(user);
 		updateLibrary();
 	}
 

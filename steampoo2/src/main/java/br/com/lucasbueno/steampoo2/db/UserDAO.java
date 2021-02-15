@@ -22,6 +22,7 @@ public class UserDAO implements InterfaceDAO<User> {
 			User original = get(t.getUsername());
 			em.getTransaction().begin();
 			original.setPassword(t.getPassword());
+			original.getGames().clear();
 			for (Game g : t.getGames())
 				original.getGames().add(g);
 			em.getTransaction().commit();

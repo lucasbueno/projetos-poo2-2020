@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.TilePane;
 
@@ -32,9 +33,19 @@ public class MainController {
 
 	@FXML
 	private Button btnRemove;
+	
+	@FXML
+	private Label lblGameDescription;
 
 	public static void setUser(User u) {
 		user = u;
+	}
+	
+	@FXML
+	private void updateDescription() {
+		String gameName = userGameList.getSelectionModel().getSelectedItem();
+		Game game = new GameDAO().get(gameName);
+		lblGameDescription.setText(game.getDescription());
 	}
 
 	@FXML
@@ -66,6 +77,17 @@ public class MainController {
 		for (Game g : user.getGames())
 			userGames.add(g.getName());
 		userGameList.setItems(FXCollections.observableArrayList(userGames));
+		
+		if(user.getGames().isEmpty()) {
+			lblGameDescription.setText("Você ainda não possui nenhum jogo, compre hoje mesmo um jogo na nossa loja!");
+			btnRemove.setDisable(true);
+			btnPlay.setDisable(true);
+		}else {
+			userGameList.getSelectionModel().select(0);
+			btnRemove.setDisable(false);
+			btnPlay.setDisable(false);
+			updateDescription();
+		}
 	}
 
 	@FXML

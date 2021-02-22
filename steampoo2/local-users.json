@@ -1,0 +1,11 @@
+{
+    "user": {
+        "username": "local1",
+		"password": "local1"
+    }
+    "user": {
+        "username": "local3",
+		"password": "local3"
+    }
+}
+

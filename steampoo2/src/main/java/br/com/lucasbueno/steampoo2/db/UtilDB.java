@@ -57,7 +57,7 @@ public class UtilDB {
 		new UserDAO().persist(u);
 	}
 
-	private static List<User> consumeAPI(List<String> users) {
+	public static List<User> consumeAPI(List<String> users) {
 		List<User> result = new ArrayList<User>();
 		for (int lineIndex = 0; lineIndex < users.size(); lineIndex++) {
 			String line = users.get(lineIndex);

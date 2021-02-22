@@ -1,5 +1,6 @@
 package br.com.lucasbueno.steampoo2;
 
+import br.com.lucasbueno.steampoo2.db.UsersInFile;
 import br.com.lucasbueno.steampoo2.db.UtilDB;
 import javafx.application.Application;
 
@@ -12,6 +13,10 @@ public class Main {
 		System.out.println("A thread da classe Main está executando...");
 		System.out.println("O banco de dados será inicializado...");
 		UtilDB.initDB();
+		
+		System.out.println("Os usuários do arquivo local estão sendo lidos e salvos no banco...");
+		new UsersInFile().check();
+		
 		System.out.println("A interface gráfica será inicializada...");
 		Application.launch(App.class);
 		System.out.println("A interface gráfica foi fechada.");

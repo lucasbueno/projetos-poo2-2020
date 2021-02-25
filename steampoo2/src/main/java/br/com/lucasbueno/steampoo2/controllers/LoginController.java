@@ -49,9 +49,10 @@ public class LoginController {
 			alert.showAndWait();
 			return;
 		}
-		MainController.setUser(u);
 		App.changeResizable();
 		App.setRoot("main");
+		MainController controller = FXMLUtil.getMainController();
+		controller.updateUserInfo(u);
 	}
 
 	@FXML

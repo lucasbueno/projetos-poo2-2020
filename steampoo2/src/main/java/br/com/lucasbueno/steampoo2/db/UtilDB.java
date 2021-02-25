@@ -45,7 +45,7 @@ public class UtilDB {
 		for (User u : consumeAPI(consultAPI()))
 			new UserDAO().persist(u);
 
-		User u = new User("admin", "teste");
+		User u = new User("admin", "teste", "");
 		new UserDAO().persist(u);
 
 		Game cs = new Game("Counter-strike", "Joguinho de tiro", 10.5);
@@ -66,7 +66,7 @@ public class UtilDB {
 				lineIndex++;
 				line = users.get(lineIndex);
 				String password = processJSONLine(line);
-				User user = new User(username, password);
+				User user = new User(username, password, "");
 				result.add(user);
 			}
 		}

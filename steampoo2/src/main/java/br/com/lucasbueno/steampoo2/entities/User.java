@@ -15,17 +15,28 @@ public class User {
 
 	private String password;
 
+	private String userImage;
+
 	@ManyToMany
 	private List<Game> games;
 
 	public User() {
 	}
 
-	public User(String username, String password) {
+	public User(String username, String password, String userImage) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.userImage = userImage;
 		this.games = new ArrayList<>();
+	}
+
+	public String getUserImage() {
+		return userImage;
+	}
+
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
 	}
 
 	public String getUsername() {

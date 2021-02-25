@@ -16,11 +16,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 
 public class MainController {
 
-	private static User user;
+	private User user;
 
 	@FXML
 	private TilePane tileGames;
@@ -33,14 +35,24 @@ public class MainController {
 
 	@FXML
 	private Button btnRemove;
-	
+
 	@FXML
 	private Label lblGameDescription;
 
-	public static void setUser(User u) {
-		user = u;
+	@FXML
+	private ImageView imgUser;
+
+	@FXML
+	private Label lblUserInfo;
+
+	public void updateUserInfo(User u) {
+		this.user = u;
+		updateLibrary();
+		Image image = new Image(user.getUserImage());
+		imgUser.setImage(image);
+		lblUserInfo.setText("Olá " + user.getUsername());
 	}
-	
+
 	@FXML
 	private void updateDescription() {
 		String gameName = userGameList.getSelectionModel().getSelectedItem();
@@ -73,16 +85,18 @@ public class MainController {
 
 	@FXML
 	private void updateLibrary() {
+		if (user == null)
+			return;
 		List<String> userGames = new ArrayList<>();
 		for (Game g : user.getGames())
 			userGames.add(g.getName());
 		userGameList.setItems(FXCollections.observableArrayList(userGames));
-		
-		if(user.getGames().isEmpty()) {
+
+		if (user.getGames().isEmpty()) {
 			lblGameDescription.setText("Você ainda não possui nenhum jogo, compre hoje mesmo um jogo na nossa loja!");
 			btnRemove.setDisable(true);
 			btnPlay.setDisable(true);
-		}else {
+		} else {
 			userGameList.getSelectionModel().select(0);
 			btnRemove.setDisable(false);
 			btnPlay.setDisable(false);

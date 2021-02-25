@@ -1,6 +1,9 @@
 package br.com.lucasbueno.steampoo2.controllers;
 
 import br.com.lucasbueno.steampoo2.App;
+
+import org.controlsfx.control.ToggleSwitch;
+
 import br.com.lucasbueno.steampoo2.AlertUtil;
 import br.com.lucasbueno.steampoo2.FXMLUtil;
 import br.com.lucasbueno.steampoo2.db.UserDAO;
@@ -24,6 +27,9 @@ public class LoginController {
 	private PasswordField txtPassword;
 
 	@FXML
+	private ToggleSwitch togglSaveLogin;
+
+	@FXML
 	private void login() {
 		String email = txtEmail.getText();
 		String password = txtPassword.getText();
@@ -38,21 +44,26 @@ public class LoginController {
 			alert.showAndWait();
 			return;
 		}
-		User u = new UserDAO().get(email);
-		if (u == null) {
+		User user = new UserDAO().get(email);
+		if (user == null) {
 			Alert alert = AlertUtil.error("Erro!", "Erro!", "E-mail ou senha inválido(s)!", null);
 			alert.showAndWait();
 			return;
 		}
-		if (!u.getPassword().contentEquals(password)) {
+		if (!user.getPassword().contentEquals(password)) {
 			Alert alert = AlertUtil.error("Erro!", "Erro!", "E-mail ou senha inválido(s)!", null);
 			alert.showAndWait();
 			return;
 		}
+		if (togglSaveLogin.isSelected())
+			user.setSaveLogin(true);
+		else
+			user.setSaveLogin(false);
+		new UserDAO().persist(user);
 		App.changeResizable();
 		App.setRoot("main");
 		MainController controller = FXMLUtil.getMainController();
-		controller.updateUserInfo(u);
+		controller.updateUserInfo(user);
 	}
 
 	@FXML

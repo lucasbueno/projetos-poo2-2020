@@ -17,6 +17,8 @@ public class User {
 
 	private String userImage;
 
+	private boolean saveLogin;
+
 	@ManyToMany
 	private List<Game> games;
 
@@ -28,7 +30,16 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.userImage = userImage;
+		this.saveLogin = true;
 		this.games = new ArrayList<>();
+	}
+
+	public boolean isSaveLogin() {
+		return saveLogin;
+	}
+
+	public void setSaveLogin(boolean saveLogin) {
+		this.saveLogin = saveLogin;
 	}
 
 	public String getUserImage() {

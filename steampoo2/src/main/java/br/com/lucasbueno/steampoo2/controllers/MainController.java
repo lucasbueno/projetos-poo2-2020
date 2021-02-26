@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.lucasbueno.steampoo2.App;
+import br.com.lucasbueno.steampoo2.FXMLUtil;
 import br.com.lucasbueno.steampoo2.db.GameDAO;
 import br.com.lucasbueno.steampoo2.db.UserDAO;
 import br.com.lucasbueno.steampoo2.entities.Game;
@@ -48,8 +49,10 @@ public class MainController {
 	public void updateUserInfo(User u) {
 		this.user = u;
 		updateLibrary();
-		Image image = new Image(user.getUserImage());
-		imgUser.setImage(image);
+		if (!user.getUserImage().isBlank()) {
+			Image image = new Image(user.getUserImage());
+			imgUser.setImage(image);
+		}
 		lblUserInfo.setText("Olá " + user.getUsername());
 	}
 
@@ -63,6 +66,7 @@ public class MainController {
 	@FXML
 	private void logout() {
 		user = null;
+		FXMLUtil.changeFlatbee(false);
 		App.changeResizable();
 		App.setRoot("login");
 	}

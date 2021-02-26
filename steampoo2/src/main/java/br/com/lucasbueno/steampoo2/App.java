@@ -1,7 +1,6 @@
 package br.com.lucasbueno.steampoo2;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -14,7 +13,6 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage stge) {
-
 		stage = stge;
 		stage.setScene(FXMLUtil.loadScene("login"));
 		changeResizable();

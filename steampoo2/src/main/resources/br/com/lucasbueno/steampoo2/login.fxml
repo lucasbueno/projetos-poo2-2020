@@ -63,6 +63,10 @@
             <Insets top="10.0" />
          </VBox.margin>
       </ToggleSwitch>
+      <ToggleSwitch fx:id="togglFlatbee" layoutX="37.0" layoutY="128.0" text="Usar tema Flatbee?">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin></ToggleSwitch>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" />

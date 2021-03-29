@@ -1,10 +1,13 @@
 package br.com.lucasbueno.steampoo2.controllers;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import br.com.lucasbueno.steampoo2.AlertUtil;
 import br.com.lucasbueno.steampoo2.App;
-import br.com.lucasbueno.steampoo2.FXMLUtil;
 import br.com.lucasbueno.steampoo2.db.GameDAO;
 import br.com.lucasbueno.steampoo2.db.UserDAO;
 import br.com.lucasbueno.steampoo2.entities.Game;
@@ -14,14 +17,19 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 
-public class MainController {
+public class MainController implements Initializable {
 
 	private User user;
 
@@ -59,16 +67,27 @@ public class MainController {
 	@FXML
 	private void updateDescription() {
 		String gameName = userGameList.getSelectionModel().getSelectedItem();
+		if (gameName == null)
+			return;
 		Game game = new GameDAO().get(gameName);
 		lblGameDescription.setText(game.getDescription());
 	}
 
 	@FXML
 	private void logout() {
-		user = null;
-		FXMLUtil.changeFlatbee(false);
-		App.changeResizable();
-		App.setRoot("login");
+		try {
+			user = null;
+			FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
+			Scene scene = new Scene(fxmlLoader.load());
+			Stage stage = (Stage) lblUserInfo.getScene().getWindow();
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
+		} catch (IOException e) {
+			Alert alert = AlertUtil.error("Erro", "Erro ao carregar um componente",
+					"Erro ao tentar carregar a janela de login", e);
+			alert.showAndWait();
+		}
 	}
 
 	@FXML
@@ -128,6 +147,11 @@ public class MainController {
 				updateGamesStore();
 			}
 		};
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
 	}
 
 }

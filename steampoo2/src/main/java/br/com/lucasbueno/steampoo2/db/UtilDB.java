@@ -47,6 +47,8 @@ public class UtilDB {
 
 		User u = new User("admin", "teste", "");
 		new UserDAO().persist(u);
+		
+		new UserDAO().persist(u);
 
 		Game cs = new Game("Counter-strike", "Joguinho de tiro", 10.5);
 		Game nfs = new Game("Need for Speed", "Joguinho de corrida de carrinhos", 15.5);

@@ -1,6 +1,11 @@
 package br.com.lucasbueno.steampoo2;
 
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
@@ -8,32 +13,28 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-	private static Stage stage;
 	private static Thread connection;
 
 	@Override
-	public void start(Stage stge) {
-		stage = stge;
-		stage.setScene(FXMLUtil.loadScene("login"));
-		changeResizable();
-		stage.setTitle("Steam");
-		stage.show();
+	public void start(Stage stage) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
+			Scene scene = new Scene(fxmlLoader.load());
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.setTitle("Steam");
+			stage.show();
+		} catch (IOException e) {
+			Alert alert = AlertUtil.error("Erro", "Erro ao carregar um componente",
+					"Erro ao tentar carregar a janela de login", e);
+			alert.showAndWait();
+		}
+		
 		connection.start();
 	}
 
 	public static void setConnection(Thread connection) {
 		App.connection = connection;
-	}
-
-	public static void setRoot(String fxml) {
-		stage.setScene(FXMLUtil.loadScene(fxml));
-	}
-
-	public static void changeResizable() {
-		if (stage.isResizable())
-			stage.setResizable(false);
-		else
-			stage.setResizable(true);
 	}
 
 }
